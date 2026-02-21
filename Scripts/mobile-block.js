@@ -1,66 +1,22 @@
 // ========================================
-// SISTEMA DE BLOQUEIO MOBILE
-// mobile-block.js
+// MOBILE-BLOCK.JS
 // ========================================
-
-// Criar e inserir overlay de bloqueio mobile
-const criarOverlayMobile = () => {
-    // Verificar se já existe
-    if (document.getElementById('mobile-block-overlay')) return;
-    
-    // Criar elemento
-    const overlay = document.createElement('div');
-    overlay.id = 'mobile-block-overlay';
-    overlay.className = 'mobile-block-overlay';
-    
-    overlay.innerHTML = `
-        <div class="mobile-block-content">
-            <div class="mobile-block-icon">🖥️</div>
-            <h1>Acesso via Desktop</h1>
-            <p>
-                Esta plataforma foi desenvolvida especialmente para <span class="highlight">computadores desktop</span>.
-            </p>
-            <p>
-                Para uma melhor experiência de aprendizagem, acesse através de um computador com resolução mínima de <span class="highlight">1024x768</span>.
-            </p>
-            <br>
-            <p style="font-size: 0.9rem; color: #999;">
-                📱 Versão mobile em desenvolvimento
-            </p>
-        </div>
-    `;
-    
-    // Inserir no body
-    document.body.insertBefore(overlay, document.body.firstChild);
-};
-
-// Verificar largura da tela
-const verificarDispositivo = () => {
-    const largura = window.innerWidth;
-    
-    if (largura < 1024) {
-        criarOverlayMobile();
+(function() {
+  const verificar = () => {
+    if (window.innerWidth < 1024) {
+      if (!document.getElementById('mobile-overlay')) {
+        const el = document.createElement('div');
+        el.id = 'mobile-overlay';
+        el.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#0d0d1a;z-index:99999;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px;';
+        el.innerHTML = `<div style="color:white;"><div style="font-size:4rem;margin-bottom:20px;">🖥️</div><h1 style="font-size:1.8rem;color:#1e88e5;margin-bottom:15px;">Acesso via Desktop</h1><p style="color:#aaa;font-size:1rem;line-height:1.6;">Esta plataforma foi desenvolvida para <strong style="color:white;">computadores desktop</strong>.<br><br>Acesse com resolução mínima de <strong style="color:#1e88e5;">1024px</strong>.</p><p style="color:#666;font-size:0.85rem;margin-top:20px;">📱 Versão mobile em desenvolvimento</p></div>`;
+        document.body.insertBefore(el, document.body.firstChild);
+      }
     } else {
-        // Remover overlay se existir e a tela for grande o suficiente
-        const overlay = document.getElementById('mobile-block-overlay');
-        if (overlay) {
-            overlay.remove();
-        }
+      const el = document.getElementById('mobile-overlay');
+      if (el) el.remove();
     }
-};
-
-// Executar ao carregar
-document.addEventListener('DOMContentLoaded', verificarDispositivo);
-
-// Executar ao redimensionar
-window.addEventListener('resize', verificarDispositivo);
-
-// Prevenir zoom em mobile
-document.addEventListener('gesturestart', function(e) {
-    e.preventDefault();
-});
-
-// Detectar orientação (mobile)
-window.addEventListener('orientationchange', verificarDispositivo);
-
-console.log('✅ Sistema de bloqueio mobile ativado');
+  };
+  document.addEventListener('DOMContentLoaded', verificar);
+  window.addEventListener('resize', verificar);
+  window.addEventListener('orientationchange', verificar);
+})();
