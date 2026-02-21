@@ -245,7 +245,7 @@ const realizarLogin = (usuario, senha) => {
 
 const realizarLogout = () => {
   limparSessao();
-  window.location.href = '../Login/index.html';
+  window.location.href = '/Login/index.html';
 };
 
 // ========================================
@@ -390,3 +390,4 @@ window.adminForcarInicializacao = () => {
   _inicializarFallback();
   console.log('[AUTH] Reinicialização forçada concluída!');
 };
+
