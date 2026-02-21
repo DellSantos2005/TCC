@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+    background-color: #1e1e2e;
+}
+
+header {
+    background-color: #1a1a27;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    /* Centraliza os itens no meio */
+    align-items: center;
+    z-index: 99;
+}
+
+.navbar {
+    display: flex;
+    gap: 3rem;
+    /* Ajusta a distância entre os links */
+}
+
+.navbar a {
+    margin-left: 14%;
+    color: #1e88e5;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+    /* Adiciona um efeito ao passar o mouse */
+}
+
+.sidebar {
+    position: fixed;
+    top: 35px;
+    left: 0; /* Adicionado */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens na barra */
+    width: 240px;
+    height: 100vh;
+    padding: 40px 15px 30px 15px;
+    border-right: 5px solid #2c2c42;
+    z-index: 98;
+}
+
+.logo-img {
+    margin-left: 95px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 80%;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+
+
+.sidebar button {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    color: #1e88e5;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.sidebar button span {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sidebar button :hover {
+    color: #ffffff;
+}
+
+.sidebar button img {
+    width: 42px;
+    height: 42px;
+}
+
+.main-tematico {
+    margin-left: 23%;
+    margin-top: 80px;
+    width: 70%;
+    padding: 20px;
+    background: #2c2c42;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .descricao {
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  
+  .quiz-card {
+    background-color: #333;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: left;
+  }
+  
+  .quiz-card h2 {
+    margin-bottom: 15px;
+    color: #1e88e5;
+  }
+  
+  .alternativas {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .alternativas li {
+    margin: 10px 0;
+  }
+  
+  .alternativas button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #1e88e5;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  .alternativas button:hover {
+    background-color: #005bb5;
+  }
+  
+  .aviso {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #ccc;
+  }

@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+    background-color: #1e1e2e;
+}
+
+header {
+    background-color: #1a1a27;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    /* Centraliza os itens no meio */
+    align-items: center;
+    z-index: 99;
+}
+
+.navbar {
+    display: flex;
+    gap: 3rem;
+    /* Ajusta a distância entre os links */
+}
+
+.navbar a {
+    margin-left: 14%;
+    color: #1e88e5;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+    /* Adiciona um efeito ao passar o mouse */
+}
+
+.sidebar {
+    position: fixed;
+    top: 35px;
+    left: 0; /* Adicionado */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens na barra */
+    width: 240px;
+    height: 100vh;
+    padding: 40px 15px 30px 15px;
+    border-right: 5px solid #2c2c42;
+    z-index: 98;
+}
+
+.logo-img {
+    margin-left: 95px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 80%;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+
+
+.sidebar button {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    color: #1e88e5;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.sidebar button span {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sidebar button :hover {
+    color: #ffffff;
+}
+
+.sidebar button img {
+    width: 42px;
+    height: 42px;
+}
+
+.container-assunto {
+    margin-top: 60px;
+margin-left: 22%;
+    width: 70%;
+    padding: 20px;
+    background: #2a2a3a;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Videoaula */
+.video-frame {
+    width: 100%;
+    max-width: 700px;
+    height: 400px;
+    margin-top: 15px;
+}
+
+/* Seletor de Atividades */
+.atividade-selector {
+    margin-top: 20px;
+}
+
+.atividade-selector button {
+    background: #1e88e5;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.atividade-selector button:hover {
+    background: #005bb5;
+}
+
+/* Área para carregar os jogos/quizzes */
+.atividade-container {
+    margin-left: 12%;
+    margin-top: 20px;
+}
+
+.atividade-frame {
+    width: 100%;
+    max-width: 700px;
+    height: 400px;
+    display: none; /* Inicialmente invisível */
+}
+
+.atividade-container iframe[src] {
+    display: block;
+}
+
+/* Botão Voltar */
+.voltar {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #1e88e5;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.voltar:hover {
+    background: #005bb5;
+}
