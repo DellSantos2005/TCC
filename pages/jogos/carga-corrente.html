@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Elétrons - Carga e Corrente Elétrica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-header {
+            background: rgba(15, 15, 25, 0.95);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1e88e5;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-title {
+            font-size: 1.8rem;
+            color: #1e88e5;
+            text-shadow: 0 0 10px rgba(30, 136, 229, 0.5);
+        }
+
+        .stats {
+            display: flex;
+            gap: 25px;
+        }
+
+        .stat-box {
+            background: rgba(30, 136, 229, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(30, 136, 229, 0.3);
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e88e5;
+        }
+
+        .game-container {
+            display: flex;
+            height: calc(100vh - 100px);
+            padding: 20px;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .info-panel {
+            width: 280px;
+            background: rgba(20, 20, 30, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            color: #1e88e5;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid rgba(30, 136, 229, 0.3);
+            padding-bottom: 6px;
+        }
+
+        .info-text {
+            color: #ccc;
+            line-height: 1.5;
+            font-size: 0.85rem;
+        }
+
+        .formula-box {
+            background: rgba(30, 136, 229, 0.1);
+            border: 2px solid rgba(30, 136, 229, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 12px 0;
+            text-align: center;
+        }
+
+        .formula {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e88e5;
+            font-family: 'Courier New', monospace;
+        }
+
+        .formula-desc {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 6px;
+        }
+
+        .simulation-area {
+            flex: 1;
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            min-width: 0;
+        }
+
+        .sim-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sim-header h2 {
+            color: #1e88e5;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .sim-header p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .wire-container {
+            height: 100px;
+            background: linear-gradient(135deg, #1a1a2a, #0f0f18);
+            border-radius: 15px;
+            position: relative;
+            border: 3px solid rgba(30, 136, 229, 0.3);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .wire {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 60px;
+            background: linear-gradient(to bottom, #666, #444, #666);
+            border-radius: 30px;
+            transform: translateY(-50%);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .electron {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #00ffff, #0088ff);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+            animation: flow 3s linear infinite;
+        }
+
+        @keyframes flow {
+            0% { left: -30px; }
+            100% { left: calc(100% + 30px); }
+        }
+
+        .terminal {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal.positive {
+            background: linear-gradient(135deg, #e53935, #c62828);
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
+        }
+
+        .terminal.negative {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+        }
+
+        .controls-panel {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-label {
+            color: #1e88e5;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slider {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(30, 136, 229, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(30, 136, 229, 0.5);
+        }
+
+        .slider-value {
+            min-width: 80px;
+            text-align: right;
+            font-weight: 700;
+            color: #1e88e5;
+            font-size: 1.2rem;
+        }
+
+        .quiz-section {
+            background: rgba(30, 136, 229, 0.1);
+            border: 2px solid rgba(30, 136, 229, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .quiz-question {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: rgba(42, 42, 58, 0.8);
+            border: 2px solid rgba(30, 136, 229, 0.3);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .quiz-option:hover {
+            background: rgba(30, 136, 229, 0.2);
+            border-color: #1e88e5;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+            border-color: #4caf50;
+        }
+
+        .quiz-option.wrong {
+            background: linear-gradient(135deg, #e53935, #c62828);
+            border-color: #e53935;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f18);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            border: 3px solid #1e88e5;
+        }
+
+        .modal-content h2 {
+            font-size: 2.5rem;
+            color: #1e88e5;
+            margin-bottom: 20px;
+        }
+
+        .result-stats {
+            background: rgba(30, 136, 229, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .result-stats p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .xp-value {
+            color: #4caf50;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-header">
+        <div class="game-title">⚡ Fluxo de Elétrons - Carga e Corrente</div>
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Fase</div>
+                <div class="stat-value" id="fase">1/3</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Pontos</div>
+                <div class="stat-value" id="pontos">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Acertos</div>
+                <div class="stat-value" id="acertos">0/5</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div class="info-panel">
+            <div class="info-section">
+                <h3 class="info-title">📚 Conceitos</h3>
+                <div class="info-text">
+                    <strong>Carga Elétrica (Q):</strong> Quantidade de eletricidade. Medida em Coulombs (C).
+                </div>
+                <div class="info-text" style="margin-top: 10px;">
+                    <strong>Corrente Elétrica (I):</strong> Fluxo de cargas elétricas. Medida em Ampères (A).
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <div class="formula">I = Q / t</div>
+                <div class="formula-desc">
+                    I = Corrente (A)<br>
+                    Q = Carga (C)<br>
+                    t = Tempo (s)
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3 class="info-title">⚡ Sentido da Corrente</h3>
+                <div class="info-text">
+                    <strong style="color: #e53935;">Convencional:</strong> Do polo positivo (+) para o negativo (-)<br><br>
+                    <strong style="color: #1e88e5;">Real (Elétrons):</strong> Do polo negativo (-) para o positivo (+)
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3 class="info-title">💡 Dica</h3>
+                <div class="info-text" id="dica">
+                    Use os controles para ajustar os valores e observe o fluxo de elétrons!
+                </div>
+            </div>
+        </div>
+
+        <div class="simulation-area">
+            <div class="sim-header">
+                <h2>Visualização do Fluxo de Elétrons</h2>
+                <p>Observe como os elétrons se movem do polo negativo (-) para o positivo (+)</p>
+            </div>
+
+            <div class="wire-container" id="wire-container">
+                <div class="terminal negative">-</div>
+                <div class="wire" id="wire"></div>
+                <div class="terminal positive">+</div>
+            </div>
+
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label class="control-label">🔋 Tensão (V): <span id="voltage-display">12V</span></label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="voltage" min="1" max="24" value="12" oninput="updateSimulation()">
+                        <span class="slider-value" id="voltage-value">12 V</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">⚡ Corrente (A): <span id="current-display">2A</span></label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="current" min="1" max="10" value="2" oninput="updateSimulation()">
+                        <span class="slider-value" id="current-value">2 A</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">📊 Carga Total: <span id="charge-display">0 C</span></label>
+                </div>
+            </div>
+
+            <div class="quiz-section" id="quiz-section">
+                <div class="quiz-question" id="question">Carregando pergunta...</div>
+                <div class="quiz-options" id="options"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-success" onclick="verificarResposta()">✓ Verificar Resposta</button>
+                <button class="btn btn-primary" onclick="proximaFase()">→ Próxima Fase</button>
+                <button class="btn" style="background: #666;" onclick="sair()">← Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-result">
+        <div class="modal-content">
+            <h2>🎉 Parabéns!</h2>
+            <p>Você completou o jogo de Carga e Corrente!</p>
+            <div class="result-stats">
+                <p>🎯 Acertos: <span id="final-acertos">0</span>/5</p>
+                <p>🏆 Pontuação: <span id="final-pontos">0</span></p>
+                <p class="xp-value">💰 +<span id="final-xp">0</span> XP</p>
+            </div>
+            <button class="btn btn-primary" onclick="reiniciar()" style="padding: 15px 40px; font-size: 1.1rem;">
+                🔄 Jogar Novamente
+            </button>
+            <button class="btn" onclick="sair()" style="background: #666; padding: 15px 40px; font-size: 1.1rem; margin-left: 10px;">
+                ← Voltar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let fase = 1;
+        let pontos = 0;
+        let acertos = 0;
+        let questaoAtual = 0;
+        let respostaCorreta = null;
+
+        const questoes = [
+            {
+                pergunta: "Se a corrente é 5A e o tempo é 2s, qual a carga total?",
+                opcoes: ["5 C", "10 C", "2.5 C", "7 C"],
+                correta: 1,
+                explicacao: "Q = I × t = 5A × 2s = 10C"
+            },
+            {
+                pergunta: "Qual o sentido REAL do fluxo de elétrons?",
+                opcoes: ["Do + para o -", "Do - para o +", "Não tem sentido", "Depende da tensão"],
+                correta: 1,
+                explicacao: "Os elétrons (carga negativa) vão do polo negativo para o positivo"
+            },
+            {
+                pergunta: "Se Q = 20C e t = 4s, qual a corrente?",
+                opcoes: ["5 A", "80 A", "16 A", "24 A"],
+                correta: 0,
+                explicacao: "I = Q / t = 20C / 4s = 5A"
+            },
+            {
+                pergunta: "1 Ampère equivale a quantos Coulombs por segundo?",
+                opcoes: ["0.5 C/s", "1 C/s", "2 C/s", "10 C/s"],
+                correta: 1,
+                explicacao: "Por definição, 1A = 1C/s"
+            },
+            {
+                pergunta: "Aumentar a tensão de uma bateria tende a:",
+                opcoes: [
+                    "Diminuir a corrente",
+                    "Aumentar a corrente",
+                    "Não afetar a corrente",
+                    "Inverter o sentido"
+                ],
+                correta: 1,
+                explicacao: "Maior tensão → maior força para movimentar elétrons → maior corrente"
+            }
+        ];
+
+        function updateSimulation() {
+            const voltage = document.getElementById('voltage').value;
+            const current = document.getElementById('current').value;
+            
+            document.getElementById('voltage-value').textContent = voltage + ' V';
+            document.getElementById('current-value').textContent = current + ' A';
+            document.getElementById('voltage-display').textContent = voltage + 'V';
+            document.getElementById('current-display').textContent = current + 'A';
+            
+            const charge = current * 2;
+            document.getElementById('charge-display').textContent = charge + ' C';
+            
+            const wire = document.getElementById('wire');
+            const electronCount = Math.max(3, Math.floor(current / 2));
+            
+            wire.innerHTML = '';
+            for (let i = 0; i < electronCount; i++) {
+                const electron = document.createElement('div');
+                electron.className = 'electron';
+                electron.style.animationDelay = (i * 3 / electronCount) + 's';
+                electron.style.animationDuration = (4 - current / 3) + 's';
+                wire.appendChild(electron);
+            }
+        }
+
+        function carregarQuestao() {
+            if (questaoAtual >= questoes.length) {
+                mostrarResultado();
+                return;
+            }
+
+            const q = questoes[questaoAtual];
+            document.getElementById('question').textContent = q.pergunta;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.opcoes.forEach((opcao, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opcao;
+                btn.onclick = () => selecionarResposta(index, btn);
+                optionsDiv.appendChild(btn);
+            });
+
+            respostaCorreta = null;
+        }
+
+        function selecionarResposta(index, btn) {
+            document.querySelectorAll('.quiz-option').forEach(b => {
+                b.style.background = 'rgba(42, 42, 58, 0.8)';
+                b.style.borderColor = 'rgba(30, 136, 229, 0.3)';
+            });
+            btn.style.background = 'rgba(30, 136, 229, 0.3)';
+            btn.style.borderColor = '#1e88e5';
+            respostaCorreta = index;
+        }
+
+        function verificarResposta() {
+            if (respostaCorreta === null) {
+                alert('⚠️ Selecione uma resposta primeiro!');
+                return;
+            }
+
+            const q = questoes[questaoAtual];
+            const botoes = document.querySelectorAll('.quiz-option');
+
+            botoes.forEach(btn => btn.style.pointerEvents = 'none');
+
+            if (respostaCorreta === q.correta) {
+                botoes[respostaCorreta].classList.add('correct');
+                acertos++;
+                pontos += 200;
+                alert('✅ Correto! ' + q.explicacao);
+            } else {
+                botoes[respostaCorreta].classList.add('wrong');
+                botoes[q.correta].classList.add('correct');
+                alert('❌ Incorreto! ' + q.explicacao);
+            }
+
+            document.getElementById('acertos').textContent = acertos + '/' + questoes.length;
+            document.getElementById('pontos').textContent = pontos;
+
+            questaoAtual++;
+            
+            setTimeout(() => {
+                carregarQuestao();
+            }, 2000);
+        }
+
+        function proximaFase() {
+            alert('Continue respondendo as questões!');
+        }
+
+        function mostrarResultado() {
+            const xpGanho = pontos;
+            document.getElementById('final-acertos').textContent = acertos;
+            document.getElementById('final-pontos').textContent = pontos;
+            document.getElementById('final-xp').textContent = xpGanho;
+            document.getElementById('modal-result').classList.add('active');
+        }
+
+        function reiniciar() {
+            location.reload();
+        }
+
+        function sair() {
+            window.close();
+            setTimeout(() => window.location.href = '../../pages/Principal/Home.html', 100);
+        }
+
+        updateSimulation();
+        carregarQuestao();
+    </script>
+</body>
+</html>

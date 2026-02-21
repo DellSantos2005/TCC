@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Competitivo</title>
+    <link rel="stylesheet" href="../../Styles/principalCss/sytleDesafiocompetitivo.css">
+    <link rel="stylesheet" href="../../Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="../Principal/Home.html">Inicio</a>
+            <a href="../Principal/Cursos.html">Cursos</a>
+            <a href="../Principal/Sobre.html">Sobre</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo-img">
+                <img class="logo" src="../../Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+            </div>
+
+            <nav class="menu"> 
+                <button onclick="window.location.href='../Principal/Perfil.html'">
+                    <span>
+                        <img class="perfil" src="../..//Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../Principal/Praticar.html'">
+                    <span>
+                        <img class="praticar" src="../..//Img/tl (1).webp" alt="praticar">
+                        <span>Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../Principal/Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="../..//Img/thumbnail_large.png" alt="">
+                        <span>Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../Principal/Mais.html'">
+                    <span>
+                        <img class="mais" src="../..//Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+            </nav>
+        </aside>
+    </div>
+
+    <main class="modo-competitivo">
+        <h1>⚔️ Modo Competitivo</h1>
+        <p class="descricao">Dois jogadores se enfrentam para ver quem sabe mais!</p>
+      
+        <div class="info-jogadores">
+          <div class="jogador" id="jogador1">
+            <h3>👤 Jogador 1</h3>
+            <p>Pontuação: <span id="pontos1">0</span></p>
+          </div>
+          <div class="jogador" id="jogador2">
+            <h3>👤 Jogador 2</h3>
+            <p>Pontuação: <span id="pontos2">0</span></p>
+          </div>
+        </div>
+      
+        <div class="quiz-box" id="quiz-box">
+          <h2 id="pergunta">Pergunta será carregada aqui</h2>
+          <ul id="opcoes" class="alternativas"></ul>
+        </div>
+      
+        <p id="mensagem" class="mensagem"></p>
+      
+        <div class="botoes-final">
+            <button id="btn-reiniciar" class="proxima" style="display: none;">🔁 Reiniciar</button>
+            <button id="btn-proxima" class="proxima" style="display: none;">➡️ Próxima Pergunta</button>
+        </div>
+    </main>
+
+    <script src="../../../../Scripts/migration.js"></script>
+    <script src="../../../../Scripts/utils.js"></script>
+    <script src="../../../../Scripts/auth.js"></script>
+    <script src="../../../../Scripts/progress.js"></script>
+
+    <script>
+        // ========================================
+        // BANCO DE PERGUNTAS POR CURSO
+        // ========================================
+
+        const perguntasInformatica = [
+            {
+                pergunta: "Qual estrutura é usada para repetir blocos de código em Python?",
+                alternativas: ["if/else", "switch/case", "for/while", "try/except"],
+                correta: 2,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual comando é usado para imprimir na tela em Python?",
+                alternativas: ["echo()", "print()", "mostrar()", "System.out.println()"],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual linguagem é usada para adicionar interatividade em páginas web?",
+                alternativas: ["Python", "JavaScript", "CSS", "SQL"],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "O que significa SQL?",
+                alternativas: [
+                    "Standard Query Language",
+                    "Structured Query Language",
+                    "Simple Question Language",
+                    "System Query Logic"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual dessas é uma linguagem de marcação?",
+                alternativas: ["Java", "HTML", "Python", "C++"],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "O que faz a função len() em Python?",
+                alternativas: [
+                    "Limpa a tela",
+                    "Retorna o comprimento de uma lista ou string",
+                    "Cria uma nova variável",
+                    "Fecha o programa"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual símbolo inicia um comentário em Python?",
+                alternativas: ["//", "/* */", "#", "<!-- -->"],
+                correta: 2,
+                pontos: 10
+            },
+            {
+                pergunta: "O que é Git?",
+                alternativas: [
+                    "Uma linguagem de programação",
+                    "Um sistema de controle de versão",
+                    "Um banco de dados",
+                    "Um editor de texto"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual propriedade CSS altera a cor de fundo?",
+                alternativas: ["color", "background-color", "bgcolor", "fill"],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "O que significa API?",
+                alternativas: [
+                    "Application Programming Interface",
+                    "Automated Program Interaction",
+                    "Advanced Python Integration",
+                    "Application Process Interface"
+                ],
+                correta: 0,
+                pontos: 10
+            }
+        ];
+
+        const perguntasEletrotecnica = [
+            {
+                pergunta: "Qual a unidade de medida da corrente elétrica?",
+                alternativas: ["Volt", "Ampere", "Ohm", "Watt"],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "A Lei de Ohm relaciona:",
+                alternativas: [
+                    "Tensão, corrente e resistência",
+                    "Potência, energia e tempo",
+                    "Voltagem, potência e corrente",
+                    "Resistência, capacitância e indutância"
+                ],
+                correta: 0,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual dispositivo protege circuitos contra sobrecarga?",
+                alternativas: ["Interruptor", "Disjuntor", "Relé", "Capacitor"],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "O transformador funciona baseado em:",
+                alternativas: [
+                    "Efeito Joule",
+                    "Indução eletromagnética",
+                    "Efeito fotoelétrico",
+                    "Condução térmica"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual a norma que regulamenta segurança em instalações elétricas?",
+                alternativas: ["NR-10", "NBR-5410", "NR-35", "ISO-9001"],
+                correta: 0,
+                pontos: 10
+            },
+            {
+                pergunta: "Em um circuito série, a corrente elétrica:",
+                alternativas: [
+                    "É diferente em cada componente",
+                    "É a mesma em todos os componentes",
+                    "Só passa no primeiro componente",
+                    "Aumenta a cada componente"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "A potência elétrica é medida em:",
+                alternativas: ["Ampere", "Volt", "Watt", "Ohm"],
+                correta: 2,
+                pontos: 10
+            },
+            {
+                pergunta: "O que é aterramento elétrico?",
+                alternativas: [
+                    "Conexão de um circuito à terra",
+                    "Isolamento de condutores",
+                    "Aumento de tensão",
+                    "Redução de corrente"
+                ],
+                correta: 0,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual o objetivo do fusível em um circuito?",
+                alternativas: [
+                    "Aumentar a tensão",
+                    "Proteger contra curto-circuito",
+                    "Armazenar energia",
+                    "Regular a frequência"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Em instalações residenciais, qual a tensão mais comum no Brasil?",
+                alternativas: ["110V", "220V", "110V ou 220V", "380V"],
+                correta: 2,
+                pontos: 10
+            },
+            {
+                pergunta: "O que é um curto-circuito?",
+                alternativas: [
+                    "Circuito com muitos componentes",
+                    "Conexão acidental entre dois pontos de tensões diferentes",
+                    "Circuito sem energia",
+                    "Circuito em paralelo"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual componente armazena energia elétrica em forma de campo elétrico?",
+                alternativas: ["Indutor", "Resistor", "Capacitor", "Transformador"],
+                correta: 2,
+                pontos: 10
+            },
+            {
+                pergunta: "O que significa CA e CC?",
+                alternativas: [
+                    "Corrente Alta e Corrente Contínua",
+                    "Corrente Alternada e Corrente Contínua",
+                    "Circuito Aberto e Circuito Completo",
+                    "Carga Ativa e Carga Concentrada"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Qual a função de um disjuntor diferencial residual (DR)?",
+                alternativas: [
+                    "Medir consumo de energia",
+                    "Proteger contra choques elétricos",
+                    "Aumentar a tensão",
+                    "Regular temperatura"
+                ],
+                correta: 1,
+                pontos: 10
+            },
+            {
+                pergunta: "Em um circuito paralelo, a tensão em cada ramo é:",
+                alternativas: [
+                    "Diferente",
+                    "A mesma",
+                    "Proporcional à resistência",
+                    "Sempre 220V"
+                ],
+                correta: 1,
+                pontos: 10
+            }
+        ];
+
+        // ========================================
+        // VARIÁVEIS DO JOGO
+        // ========================================
+
+        let pontos1 = 0;
+        let pontos2 = 0;
+        let perguntaAtual = 0;
+        let perguntasCompetitivo = [];
+        let respostaProcessada = false;
+
+        // ========================================
+        // OBTER PERGUNTAS DO CURSO DO USUÁRIO
+        // ========================================
+
+        function obterPerguntasDoCurso() {
+            const usuario = obterUsuarioLogado();
+            if (!usuario) {
+                alert('❌ Erro: Usuário não encontrado!');
+                window.location.href = '../Principal/Praticar.html';
+                return [];
+            }
+
+            console.log('📚 Curso do usuário:', usuario.curso);
+            
+            if (usuario.curso === "Informática") {
+                return perguntasInformatica;
+            } else if (usuario.curso === "Eletrotécnica") {
+                return perguntasEletrotecnica;
+            } else {
+                return perguntasInformatica; // fallback
+            }
+        }
+
+        // ========================================
+        // INICIAR MODO COMPETITIVO
+        // ========================================
+
+        function iniciarModoCompetitivo() {
+            pontos1 = 0;
+            pontos2 = 0;
+            perguntaAtual = 0;
+            
+            const todasPerguntas = obterPerguntasDoCurso();
+            perguntasCompetitivo = [];
+            
+            // Selecionar 5 perguntas aleatórias
+            const perguntasUsadas = new Set();
+            while (perguntasCompetitivo.length < 5 && perguntasUsadas.size < todasPerguntas.length) {
+                const index = Math.floor(Math.random() * todasPerguntas.length);
+                if (!perguntasUsadas.has(index)) {
+                    perguntasUsadas.add(index);
+                    perguntasCompetitivo.push(todasPerguntas[index]);
+                }
+            }
+            
+            console.log('🎮 Jogo iniciado com', perguntasCompetitivo.length, 'perguntas');
+            carregarPerguntaCompetitivo();
+        }
+
+        // ========================================
+        // CARREGAR PERGUNTA
+        // ========================================
+
+        function carregarPerguntaCompetitivo() {
+            if (perguntaAtual >= perguntasCompetitivo.length) {
+                finalizarModoCompetitivo();
+                return;
+            }
+
+            respostaProcessada = false;
+            
+            const pergunta = perguntasCompetitivo[perguntaAtual];
+            const quizBox = document.getElementById('quiz-box');
+            const btnProxima = document.getElementById('btn-proxima');
+            const mensagem = document.getElementById('mensagem');
+            
+            if (!quizBox) return;
+            
+            document.getElementById('pontos1').textContent = pontos1;
+            document.getElementById('pontos2').textContent = pontos2;
+            
+            if (mensagem) mensagem.textContent = '';
+            if (btnProxima) btnProxima.style.display = 'none';
+            
+            quizBox.innerHTML = `
+                <h2 id="pergunta">Pergunta ${perguntaAtual + 1}/5: ${pergunta.pergunta}</h2>
+                <ul id="opcoes" class="alternativas">
+                    ${pergunta.alternativas.map((alt, index) => `
+                        <li><button onclick="responderCompetitivo(${index})">${alt}</button></li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
+        // ========================================
+        // RESPONDER PERGUNTA
+        // ========================================
+
+        window.responderCompetitivo = function(resposta) {
+            if (respostaProcessada) return;
+            respostaProcessada = true;
+
+            const pergunta = perguntasCompetitivo[perguntaAtual];
+            const botoes = document.querySelectorAll('#opcoes button');
+            const mensagem = document.getElementById('mensagem');
+            const btnProxima = document.getElementById('btn-proxima');
+            
+            botoes.forEach(btn => btn.disabled = true);
+            
+            // Sortear qual jogador respondeu
+            const jogador = Math.random() < 0.5 ? 1 : 2;
+            
+            if (resposta === pergunta.correta) {
+                botoes[resposta].style.background = '#4caf50';
+                
+                if (jogador === 1) {
+                    pontos1 += pergunta.pontos;
+                    mensagem.textContent = `✅ Jogador 1 acertou e ganhou ${pergunta.pontos} pontos!`;
+                    mensagem.style.color = '#4caf50';
+                } else {
+                    pontos2 += pergunta.pontos;
+                    mensagem.textContent = `✅ Jogador 2 acertou e ganhou ${pergunta.pontos} pontos!`;
+                    mensagem.style.color = '#4caf50';
+                }
+            } else {
+                botoes[resposta].style.background = '#e53935';
+                botoes[pergunta.correta].style.background = '#4caf50';
+                mensagem.textContent = `❌ Jogador ${jogador} errou! A resposta correta estava destacada.`;
+                mensagem.style.color = '#e53935';
+            }
+            
+            document.getElementById('pontos1').textContent = pontos1;
+            document.getElementById('pontos2').textContent = pontos2;
+            
+            perguntaAtual++;
+            
+            if (btnProxima) {
+                btnProxima.style.display = 'inline-block';
+                btnProxima.onclick = carregarPerguntaCompetitivo;
+            }
+        };
+
+        // ========================================
+        // FINALIZAR JOGO
+        // ========================================
+
+        function finalizarModoCompetitivo() {
+            const quizBox = document.getElementById('quiz-box');
+            const mensagem = document.getElementById('mensagem');
+            const btnProxima = document.getElementById('btn-proxima');
+            const btnReiniciar = document.getElementById('btn-reiniciar');
+            
+            let resultado = '';
+            let corResultado = '';
+            
+            if (pontos1 > pontos2) {
+                resultado = '🥇 Jogador 1 venceu!';
+                corResultado = '#4caf50';
+            } else if (pontos2 > pontos1) {
+                resultado = '🥇 Jogador 2 venceu!';
+                corResultado = '#4caf50';
+            } else {
+                resultado = '🤝 Empate!';
+                corResultado = '#1e88e5';
+            }
+            
+            if (quizBox) {
+                quizBox.innerHTML = `
+                    <h2 style="text-align: center; color: #1e88e5; margin-bottom: 20px;">🎮 Fim do Jogo!</h2>
+                    <p style="text-align: center; font-size: 2rem; margin: 30px 0; color: ${corResultado}; font-weight: bold;">${resultado}</p>
+                    <div style="display: flex; justify-content: space-around; margin: 30px 0; font-size: 1.3rem;">
+                        <div style="text-align: center; padding: 20px; background: rgba(30, 136, 229, 0.1); border-radius: 15px; flex: 1; margin: 0 10px;">
+                            <p style="color: #1e88e5; font-weight: bold;">👤 Jogador 1</p>
+                            <p style="font-size: 2.5rem; font-weight: bold; color: ${pontos1 > pontos2 ? '#4caf50' : '#fff'};">${pontos1}</p>
+                            <p style="color: #888; font-size: 0.9rem;">pontos</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: rgba(30, 136, 229, 0.1); border-radius: 15px; flex: 1; margin: 0 10px;">
+                            <p style="color: #1e88e5; font-weight: bold;">👤 Jogador 2</p>
+                            <p style="font-size: 2.5rem; font-weight: bold; color: ${pontos2 > pontos1 ? '#4caf50' : '#fff'};">${pontos2}</p>
+                            <p style="color: #888; font-size: 0.9rem;">pontos</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (mensagem) mensagem.textContent = '';
+            if (btnProxima) btnProxima.style.display = 'none';
+            
+            if (btnReiniciar) {
+                btnReiniciar.style.display = 'inline-block';
+                btnReiniciar.onclick = iniciarModoCompetitivo;
+            }
+            
+            // Salvar estatísticas
+            const usuario = obterUsuarioLogado();
+            if (usuario && pontos1 !== pontos2) {
+                const vencedor = pontos1 > pontos2 ? 1 : 2;
+                
+                if (vencedor === 1) {
+                    usuario.desafios.competitivo.vitorias++;
+                    adicionarXP(100);
+                } else {
+                    usuario.desafios.competitivo.derrotas++;
+                }
+                
+                atualizarUsuarioLogado(usuario);
+            }
+        }
+
+        // ========================================
+        // INICIALIZAÇÃO
+        // ========================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!verificarAutenticacao()) return;
+            
+            const usuario = obterUsuarioLogado();
+            if (usuario) {
+                console.log('✅ Usuário logado:', usuario.usuario);
+                console.log('📚 Curso:', usuario.curso);
+            }
+            
+            console.log('🎮 Iniciando Modo Competitivo...');
+            iniciarModoCompetitivo();
+        });
+    </script>
+</body>
+
+</html>

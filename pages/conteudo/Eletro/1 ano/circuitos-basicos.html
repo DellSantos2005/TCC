@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>circuitos basicos.html</title>
+    <link rel="stylesheet" href="../../../../Styles/ConteudoCss/sytlePadraoJogos.css">
+    <link rel="stylesheet" href="../../Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+
+ 
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a href="../../../Principal/Home.html">Inicio</a>
+            <a href="../../../Principal/Cursos.html">Cursos</a>
+            <a href="../../../Principal/Sobre.html">Sobre</a>
+
+        </nav>
+
+    </header>
+
+        
+    <div class="container">
+
+        <aside class="sidebar">
+
+            <div class="logo-img">
+
+                <img class="logo" src="../../../../Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+
+            </div>
+
+            <nav class="menu"> 
+
+                <button onclick="window.location.href='../../../Principal/Perfil.html'">
+                    <span>
+                        <img class="perfil" src="../../../..//Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../../../Principal/Praticar.html'">
+                    <span>
+                        <img class="praticar" src="../../../..//Img/tl (1).webp" alt="praticar">
+                        <span>Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../../../Principal/Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="../../../..//Img/thumbnail_large.png" alt="">
+                        <span>Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../../../Principal/Mais.html'">
+                    <span>
+                        <img class="mais" src="../../../..//Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+                
+            </nav>
+            
+        </aside>
+
+    </div>
+
+    <main>
+        <div class="container-assunto">
+            <h1>Circuitos Elétricos Básicos</h1>
+            <p>Conheça os principais tipos de circuitos (série, paralelo e misto) e como eles funcionam na prática.</p>
+    
+            <div class="video-section">
+                <h2>📌 Videoaula</h2>
+                <iframe class="video-frame" src="https://www.youtube.com/embed/OHLREq4CqQg" frameborder="0" allowfullscreen></iframe>
+            </div>
+    
+            <section class="atividade-selector">
+            <h2>🎮 Atividade Interativa: Acenda a Lâmpada</h2>
+            <p>Coloque em prática o que aprendeu montando circuitos elétricos funcionais!</p>
+            
+            <div class="jogo-preview">
+                <div class="preview-info">
+                    <div class="preview-icon">💡</div>
+                    <div class="preview-details">
+                        <h3>Monte seu Circuito</h3>
+                        <p>Arraste e conecte bateria, interruptor e lâmpada. Teste o circuito e veja a lâmpada acender!</p>
+                    </div>
+                </div>
+                <button class="btn-iniciar-jogo" onclick="carregarAtividade()">
+                    🎮 Iniciar Jogo Agora
+                </button>
+            </div>
+        </section>
+    
+            <button class="voltar" onclick="concluirAssuntoAtual()">Concluir e Voltar</button>
+        </div>
+    
+         <script>
+        // ========================================
+        // SISTEMA DE CARREGAMENTO DE JOGOS
+        // ========================================
+
+        function carregarAtividade() {
+            console.log('🎮 Iniciando jogo...');
+            
+            // Caminho direto para o jogo (ajuste conforme a estrutura)
+            // Se a página atual está em: /pages/conteudo/Eletro/1 ano/circuitos-basicos.html
+            // O jogo está em: /pages/jogos/acenda-lampada.html
+            const caminhoJogo = '../../../jogos/acenda-lampada.html';
+            
+            console.log('📂 Abrindo:', caminhoJogo);
+            
+            try {
+                const novaAba = window.open(
+                    caminhoJogo, 
+                    '_blank',
+                    'width=1200,height=800,scrollbars=yes,resizable=yes'
+                );
+                
+                if (!novaAba || novaAba.closed || typeof novaAba.closed === 'undefined') {
+                    alert('⚠️ Pop-ups bloqueados!\n\nPor favor, habilite pop-ups para este site nas configurações do navegador e tente novamente.');
+                    console.error('❌ Pop-up bloqueado');
+                } else {
+                    console.log('✅ Jogo aberto com sucesso!');
+                }
+            } catch (erro) {
+                console.error('❌ Erro ao abrir jogo:', erro);
+                alert('❌ Erro ao carregar o jogo!\n\nVerifique se o arquivo existe no caminho correto.');
+            }
+        }
+
+        // Verificar autenticação ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!verificarAutenticacao()) {
+                return;
+            }
+            console.log('✅ Página carregada e usuário autenticado');
+        });
+    </script>
+
+    
+    </main>
+<script src="../../../../Scripts/migration.js"></script>
+<script src="../../../../Scripts/utils.js"></script>
+<script src="../../../../Scripts/auth.js"></script>
+<script src="../../../../Scripts/progress.js"></script>
+ <script src="../../../Scripts/jogos.js"></script>
+</body>
+
+</html>

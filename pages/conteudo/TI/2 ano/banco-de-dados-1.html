@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de dados 1</title>
+    <link rel="stylesheet" href="../../../../Styles/ConteudoCss/sytleAssuntos.css">
+    <link rel="stylesheet" href="../../Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+ 
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a href="../../../Principal/Home.html">Inicio</a>
+            <a href="../../../Principal/Cursos.html">Cursos</a>
+            <a href="../../../Principal/Sobre.html">Sobre</a>
+
+        </nav>
+
+    </header>
+
+        
+    <div class="container">
+
+        <aside class="sidebar">
+
+            <div class="logo-img">
+
+                <img class="logo" src="../../../../Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+
+            </div>
+
+            <nav class="menu"> 
+
+                <button onclick="window.location.href='../../../Principal/Perfil.html'">
+                    <span>
+                        <img class="perfil" src="../../../..//Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../../../Principal/Praticar.html'">
+                    <span>
+                        <img class="praticar" src="../../../..//Img/tl (1).webp" alt="praticar">
+                        <span>Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../../../Principal/Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="../../../..//Img/thumbnail_large.png" alt="">
+                        <span>Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../../../Principal/Mais.html'">
+                    <span>
+                        <img class="mais" src="../../../..//Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+                
+            </nav>
+            
+        </aside>
+
+    </div>
+
+
+
+    <div class="container-assunto">
+        <h1>Banco de dados 1</h1>
+        <p>Aprenda sobre os conceitos iniciais de banco de dados</p>
+    
+    <div class="assuntos">
+        <h2>📌 Assuntos Disponíveis</h2>
+    
+        <div id="conceitos-banco-dados" class="assunto">
+            <h3>1️⃣ Conceitos de Banco de Dados</h3>
+            <p>Entenda o que são bancos de dados, SGBDs e modelos de dados.</p>
+            <button onclick="window.location.href='conceitos-banco-dados.html'">Estudar</button>
+        </div>
+    
+        <div id="modelo-relacional" class="assunto bloqueado">
+            <h3>2️⃣ Modelo Relacional</h3>
+            <p>Aprenda como dados são organizados em tabelas e chaves relacionais.</p>
+            <button onclick="window.location.href='modelo-relacional.html'" id="btn-ModeloRelacional" disabled>Bloqueado</button>
+        </div>
+    
+        <div id="linguagem-sql" class="assunto bloqueado">
+            <h3>3️⃣ Linguagem SQL</h3>
+            <p>Descubra os comandos básicos para manipular dados com SQL.</p>
+            <button onclick="window.location.href='linguagem-sql.html'" id="btn-LinguagemSQL" disabled>Bloqueado</button>
+        </div>
+    
+        <div id="normalizacao" class="assunto bloqueado">
+            <h3>4️⃣ Normalização</h3>
+            <p>Evite redundâncias e melhore a estrutura do seu banco com técnicas de normalização.</p>
+            <button onclick="window.location.href='normalizacao.html'" id="btn-Normalizacao" disabled>Bloqueado</button>
+        </div>
+    </div>
+            <button onclick="window.location.href='2ºano.html'" class="voltar">Voltar</button>
+        </div>
+
+    </div>
+
+    </main>
+<script src="../../../../Scripts/migration.js"></script>
+<script src="../../../../Scripts/utils.js"></script>
+<script src="../../../../Scripts/auth.js"></script>
+<script src="../../../../Scripts/progress.js"></script>
+</body>
+
+</html>
