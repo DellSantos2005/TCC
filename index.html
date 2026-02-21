@@ -1,91 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>Login - Plataforma de Aprendizagem</title>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="/Styles/LoginCss/styleLogin.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Plataforma IFBA</title>
+  <link rel="stylesheet" href="Styles/LoginCss/styleLogin.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="imagem-Login">
-        <img src="Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo" onerror="this.style.display='none'">
-    </div>
 
-    <main class="container">
-        <form id="login-form">
-            <h1>Login</h1>
+  <div class="imagem-Login">
+    <img src="Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo IFBA" onerror="this.style.display='none'">
+  </div>
 
-            <div class="input-box">
-                <input id="usuario" placeholder="Usuário (ex: joao.silva)" type="text" required autocomplete="username">
-                <i class="bx bxs-user"></i>
-            </div>
+  <main class="container">
+    <form id="login-form">
+      <h1>Login</h1>
 
-            <div class="input-box">
-                <input id="senha" placeholder="Senha (ex: IFBA.12345678900)" type="password" required autocomplete="current-password">
-                <i class="bx bxs-lock-alt"></i>
-            </div>
+      <div class="input-box">
+        <input id="usuario" type="text" placeholder="Usuário (ex: joao.silva)" required autocomplete="username">
+        <i class="bx bxs-user"></i>
+      </div>
 
-            <div class="Lembrar-me">
-                <label>
-                    <input type="checkbox" id="lembrar-me"> Lembrar-me
-                </label>
-            </div>
+      <div class="input-box">
+        <input id="senha" type="password" placeholder="Senha (ex: IFBA.12345678901)" required autocomplete="current-password">
+        <i class="bx bxs-lock-alt"></i>
+      </div>
 
-            <button type="submit" class="login">Entrar</button>
+      <div class="Lembrar-me">
+        <label><input type="checkbox" id="lembrar-me"> Lembrar-me</label>
+      </div>
 
-            <p class="termos">
-                Você concorda com os <br>
-                Termos, Condições e Políticas de Privacidade da plataforma.
-            </p>
-            
-        </form>
-    </main>
+      <button type="submit" class="login">Entrar</button>
 
-    <!-- Scripts do Sistema - ORDEM IMPORTA! -->
-    <script src="/Scripts/utils.js"></script>
-    <script src="/Scripts/fix-paths.js"></script>
-    <script src="/Scripts/auth.js"></script>
-    
-    <!-- Prevenção de loop infinito -->
-    <script>
-        // Detectar recarregamento excessivo
-        (function() {
-            const key = 'login_reload_count';
-            const maxReloads = 3;
-            let count = parseInt(sessionStorage.getItem(key) || '0');
-            
-            count++;
-            sessionStorage.setItem(key, count);
-            
-            if (count > maxReloads) {
-                console.error('❌ Muitos recarregamentos detectados. Parando...');
-                sessionStorage.removeItem(key);
-                
-                // Mostrar mensagem de erro
-                const form = document.getElementById('login-form');
-                if (form) {
-                    const aviso = document.createElement('div');
-                    aviso.style.cssText = 'background: #e53935; color: white; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: center;';
-                    aviso.innerHTML = '<strong>⚠️ Erro Detectado</strong><br>Por favor, limpe o cache do navegador e tente novamente.';
-                    form.insertBefore(aviso, form.firstChild);
-                }
-            }
-            
-            // Limpar contador após login bem-sucedido
-            window.addEventListener('beforeunload', () => {
-                if (window.location.pathname.includes('Home.html')) {
-                    sessionStorage.removeItem(key);
-                }
-            });
-        })();
-    </script>
+      <p class="termos">
+        Ao entrar, você concorda com os<br>
+        Termos e Políticas de Privacidade da plataforma.
+      </p>
+    </form>
+  </main>
+
+  <!--
+    ORDEM DOS SCRIPTS É CRÍTICA:
+    1. utils.js  → inicializa dados e expõe funções base
+    2. auth.js   → usa funções do utils.js
+  -->
+  <script src="Scripts/utils.js"></script>
+  <script src="Scripts/mobile-block.js"></script>
+  <script src="Scripts/auth.js"></script>
+
 </body>
-
 </html>
