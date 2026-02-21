@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalações maquinas-eletricas</title>
+    <link rel="stylesheet" href="/Styles/ConteudoCss/sytleAssuntos.css">
+    <link rel="stylesheet" href="/Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a href="/pages/Principal/Home.html">Inicio</a>
+            <a href="/pages/Principal/Cursos.html">Cursos</a>
+            <a href="/pages/Principal/Sobre.html">Sobre</a>
+
+        </nav>
+
+    </header>
+
+        
+    <div class="container">
+
+        <aside class="sidebar">
+
+            <div class="logo-img">
+
+                <img class="logo" src="/Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+
+            </div>
+
+            <nav class="menu"> 
+
+                <button onclick="window.location.href='/pages/Principal/Perfil.html'">
+                    <span>
+                        <img class="perfil" src="/Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='/pages/Principal/Praticar.html'">
+                    <span>
+                        <img class="praticar" src="/Img/tl (1).webp" alt="praticar">
+                        <span>Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='/pages/Principal/Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="/Img/thumbnail_large.png" alt="">
+                        <span>Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='/pages/Principal/Mais.html'">
+                    <span>
+                        <img class="mais" src="/Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+                
+            </nav>
+            
+        </aside>
+
+    </div>
+    
+    <main>
+        <div class="container-assunto">
+          <h1>Instalações Elétricas I</h1>
+          <p>Domine os princípios e normas para planejar e executar instalações elétricas seguras.</p>
+      
+          <div class="assuntos">
+            <h2>📌 Assuntos Disponíveis</h2>
+      
+            <div id="circuitos-iluminacao" class="assunto">
+              <h3>1️⃣ Circuitos de Iluminação</h3>
+              <p>Aprenda a montar circuitos básicos com interruptores e lâmpadas.</p>
+              <button onclick="window.location.href='circuitos-iluminacao.html'">Estudar</button>
+            </div>
+      
+            <div id="Tomadas-Disjuntores" class="assunto bloqueado">
+              <h3>2️⃣ Tomadas e Disjuntores</h3>
+              <p>Saiba como planejar e distribuir tomadas e dispositivos de proteção.</p>
+              <button onclick="window.location.href='Tomadas-Disjuntores.html'" disabled>Bloqueado</button>
+            </div>
+      
+            <div id="Calculo-Carga" class="assunto bloqueado">
+              <h3>3️⃣ Cálculo de Carga Elétrica</h3>
+              <p>Calcule corretamente a carga de uma instalação com base em normas.</p>
+              <button onclick="window.location.href='Calculo-Carga.html'" disabled>Bloqueado</button>
+            </div>
+      
+            <div id="Dimensionamento-Cabos" class="assunto bloqueado">
+              <h3>4️⃣ Dimensionamento de Cabos</h3>
+              <p>Selecione cabos corretamente com base na corrente e temperatura.</p>
+              <button onclick="window.location.href='Dimensionamento-Cabos.html'" disabled>Bloqueado</button>
+            </div>
+          </div>
+      
+          <button onclick="window.location.href='2ano.html'" class="voltar">Voltar</button>
+        </div>
+      </main>
+
+<script src="/Scripts/utils.js"></script>
+<script src="/Scripts/auth.js"></script>
+<script src="/Scripts/progress.js"></script>
+
+</body>
+
+</html>

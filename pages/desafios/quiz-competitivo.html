@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz competitivo</title>
+    <link rel="stylesheet" href="/Styles/principalCss/styleDesafios.css">
+    <link rel="stylesheet" href="/Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a href="../Principal/Home.html">Inicio</a>
+            <a href="../Principal/Cursos.html">Cursos</a>
+            <a href="../Principal/Sobre.html">Sobre</a>
+
+        </nav>
+
+    </header>
+
+        
+    <div class="container">
+
+        <aside class="sidebar">
+
+            <div class="logo-img">
+
+                <img class="logo" src="/Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+
+            </div>
+
+            <nav class="menu"> 
+
+                <button onclick="window.location.href='../Principal/Perfil.html'">
+                    <span>
+                        <img class="perfil" src="/Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../Principal/Praticar.html'">
+                    <span>
+                        <img class="praticar" src="/Img/tl (1).webp" alt="praticar">
+                        <span">Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../Principal/Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="/Img/thumbnail_large.png" alt="">
+                        <span">Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='../Principal/Mais.html'">
+                    <span>
+                        <img class="mais" src="/Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+                
+            </nav>
+
+        </aside>
+
+    </div>
+
+    <main class="main-evento">
+        <h1>⚔️ Competição Local</h1>
+        <p class="descricao">Dois jogadores, três perguntas, um vencedor! Quem responde mais acertos no menor tempo?</p>
+      
+        <div class="competitivo-box">
+          <div class="player">
+            <h2>👤 Jogador 1</h2>
+            <p>Pergunta: Qual linguagem é usada com HTML para adicionar interatividade?</p>
+            <ul>
+              <li><button>Python</button></li>
+              <li><button>JavaScript</button></li>
+              <li><button>CSS</button></li>
+              <li><button>SQL</button></li>
+            </ul>
+          </div>
+      
+          <div class="vs-text">VS</div>
+      
+          <div class="player">
+            <h2>👤 Jogador 2</h2>
+            <p>Pergunta: Qual comando é usado para imprimir na tela em Python?</p>
+            <ul>
+              <li><button>echo()</button></li>
+              <li><button>print()</button></li>
+              <li><button>mostrar()</button></li>
+              <li><button>System.out.println()</button></li>
+            </ul>
+          </div>
+        </div>
+      
+        <button class="voltar" onclick="window.location.href='competitivo.html'">Voltar</button>
+      </main>
+<script src="/Scripts/utils.js"></script>
+<script src="/Scripts/auth.js"></script>
+<script src="/Scripts/progress.js"></script>
+</body>
+
+</html>

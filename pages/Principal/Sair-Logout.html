@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sair/Logout</title>
+    <link rel="stylesheet" href="/Styles/principalCss/sytleSair-Logout.css">
+    <link rel="stylesheet" href="/Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a href="Home.html">Inicio</a>
+            <a href="Cursos.html">Cursos</a>
+            <a href="Sobre.html">Sobre</a>
+
+        </nav>
+
+    </header>
+
+        
+    <div class="container">
+
+        <aside class="sidebar">
+
+            <div class="logo-img">
+
+                <img class="logo" src="/Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+
+            </div>
+
+            <nav class="menu"> 
+
+                <button onclick="window.location.href='Perfil.html'">
+                    <span>
+                        <img class="perfil" src="/Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='Praticar.html'">
+                    <span>
+                        <img class="praticar" src="/Img/tl (1).webp" alt="praticar">
+                        <span>Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="/Img/thumbnail_large.png" alt="">
+                        <span>Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='Mais.html'">
+                    <span>
+                        <img class="mais" src="/Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+                
+            </nav>
+
+        </aside>
+
+    </div>
+
+    <main class="Sair-Logout">
+
+    <div class="container">
+        <h1>Deseja sair?</h1>
+        <p>Você tem certeza de que deseja sair da plataforma?</p>
+
+        <div class="botoes">
+         <button onclick="realizarLogout()" class="sair-btn">Sim, Sair</button>
+            <button onclick="window.location.href='Mais.html'" class="cancelar-btn">Cancelar</button>
+        </div>
+    </div>
+
+    </main>
+  <script src="/Scripts/utils.js"></script>
+    <script src="/Scripts/auth.js"></script>
+    <script src="/Scripts/progress.js"></script>
+    <script src="/Scripts/ranking.js"></script>
+    <script src="/Scripts/perfil.js"></script>
+    <script src="/Scripts/config.js"></script>
+    <script src="/Scripts/desafios.js"></script>
+</body>
+
+</html>

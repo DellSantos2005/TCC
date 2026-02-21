@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praticar</title>
+    <link rel="stylesheet" href="/Styles/principalCss/sytlePraticar.css">
+    <link rel="stylesheet" href="/Styles/responsiveCss/responsive-desafios-additions.css">
+    <link rel="stylesheet" href="/Styles/responsive-global.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="Home.html">Inicio</a>
+            <a href="Cursos.html">Cursos</a>
+            <a href="Sobre.html">Sobre</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo-img">
+                <img class="logo" src="/Img/Logotipo-TCC__1_-removebg-preview.png" alt="Logo">
+            </div>
+
+            <nav class="menu">
+                <button onclick="window.location.href='Perfil.html'">
+                    <span>
+                        <img class="perfil" src="/Img/tl.webp" alt="perfil">
+                        <span>Perfil</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='Praticar.html'">
+                    <span>
+                        <img class="praticar" src="/Img/tl (1).webp" alt="praticar">
+                        <span>Praticar</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='Ranking-campus.html'">
+                    <span>
+                        <img class="ranking" src="/Img/thumbnail_large.png" alt="">
+                        <span>Ranking</span>
+                    </span>
+                </button>
+
+                <button onclick="window.location.href='Mais.html'">
+                    <span>
+                        <img class="mais" src="/Img/tl (3).webp" alt="Mais">
+                        <span>Mais</span>
+                    </span>
+                </button>
+            </nav>
+        </aside>
+    </div>
+
+    <main class="container-desafios">
+        <h1>Desafios</h1>
+        <p>Escolha uma modalidade para testar seus conhecimentos, ganhar XP e subir no ranking!</p>
+
+        <div class="desafio-grid">
+            <div class="card-desafio">
+                <h2>📆 Desafios Diários</h2>
+                <p>Um novo desafio todos os dias. Mantenha sua sequência ativa!</p>
+                <button onclick="window.location.href='../desafios/Diario.html'">Acessar</button>
+            </div>
+
+            <div class="card-desafio">
+                <h2>🎯 Desafios Temáticos</h2>
+                <p id="desc-tematico">Participe de eventos especiais e ganhe prêmios únicos!</p>
+                <button id="btn-tematico">Acessar</button>
+            </div>
+
+            <div class="card-desafio">
+                <h2>⚔️ Modo Competição</h2>
+                <p>Desafie outros jogadores em partidas de conhecimento técnico.</p>
+                <button onclick="window.location.href='../desafios/Competitivo.html'">Acessar</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/Scripts/utils.js"></script>
+    <script src="/Scripts/auth.js"></script>
+    <script src="/Scripts/progress.js"></script>
+    <script src="/Scripts/ranking.js"></script>
+    <script src="/Scripts/perfil.js"></script>
+    <script src="/Scripts/config.js"></script>
+    <script src="/Scripts/desafios.js"></script>
+    <script src="/Scripts/mobile-block.js"></script>
+
+    <script>
+        // Configurar botão de Desafios Temáticos baseado no curso
+        document.addEventListener('DOMContentLoaded', () => {
+            const usuario = obterUsuarioLogado();
+            if (!usuario) {
+                window.location.href = '../../pages/Login/index.html';
+                return;
+            }
+
+            const btnTematico = document.getElementById('btn-tematico');
+            const descTematico = document.getElementById('desc-tematico');
+
+            console.log('🎮 Configurando desafios para:', usuario.curso);
+
+            if (usuario.curso === "Informática") {
+                descTematico.textContent = "Desafios sobre código limpo, segurança digital e mais!";
+                btnTematico.onclick = () => {
+                    console.log('📍 Redirecionando para desafios temáticos de TI');
+                    window.location.href = '../desafios/Tematico.html';
+                };
+            } else if (usuario.curso === "Eletrotécnica") {
+                descTematico.textContent = "Desafios sobre segurança, eficiência energética e mais!";
+                btnTematico.onclick = () => {
+                    console.log('📍 Redirecionando para desafios temáticos de Eletro');
+                    window.location.href = '../desafios/DesafiosTematicosEletro.html';
+                };
+            }
+        });
+    </script>
+</body>
+
+</html>
