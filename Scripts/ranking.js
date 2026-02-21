@@ -1,285 +1,95 @@
 // ========================================
-// SISTEMA DE RANKING
-// ranking.js - COM INDICAÇÃO DE CURSO
+// RANKING.JS
+// Depende de: utils.js
 // ========================================
 
-// ========================================
-// RENDERIZAR RANKING COM CURSO
-// ========================================
-
-const renderizarRanking = (usuarios, containerID, destacarUsuario = true) => {
+const renderizarRanking = (usuarios, containerID) => {
   const container = document.getElementById(containerID);
   if (!container) return;
-  
-  const usuarioLogado = obterUsuarioLogado();
-  
-  // Limpar conteúdo atual
+
+  const logado = obterUsuarioLogado();
   container.innerHTML = '';
-  
-  if (usuarios.length === 0) {
-    container.innerHTML = `
-      <div class="ranking-item" style="text-align: center; padding: 20px; color: #999;">
-        Nenhum usuário encontrado neste ranking ainda.
-      </div>
-    `;
+
+  if (!usuarios.length) {
+    container.innerHTML = '<div style="text-align:center;padding:20px;color:#999;">Nenhum usuário encontrado.</div>';
     return;
   }
-  
-  usuarios.forEach((usuario, index) => {
-    const posicao = index + 1;
-    const isUsuarioAtual = usuarioLogado && usuario.usuario === usuarioLogado.usuario;
-    
-    // Criar elemento do ranking
+
+  // Mostrar top 10
+  const top10 = usuarios.slice(0, 10);
+  top10.forEach((u, i) => {
+    const pos = i + 1;
+    const euSou = logado && u.usuario === logado.usuario;
+    const emoji = pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : '';
+    const corCurso = u.curso === 'Informática' ? '#2196F3' : '#FF9800';
+    const abrevCurso = u.curso === 'Informática' ? 'TI' : 'ELETRO';
+
     const item = document.createElement('div');
     item.className = 'ranking-item';
-    
-    // Destacar usuário atual
-    if (isUsuarioAtual && destacarUsuario) {
-      item.style.background = '#1e88e5';
-      item.style.color = 'white';
-      item.style.fontWeight = 'bold';
-      item.style.border = '2px solid #ffeb3b';
+    if (euSou) {
+      item.style.cssText = 'background:#1e88e5;color:white;font-weight:bold;border:2px solid #ffeb3b;';
     }
-    
-    // Adicionar medalhas para top 3
-    let emoji = '';
-    if (posicao === 1) emoji = '🥇';
-    else if (posicao === 2) emoji = '🥈';
-    else if (posicao === 3) emoji = '🥉';
-    
-    // Badge do curso
-    const cursoAbrev = usuario.curso === "Informática" ? "TI" : "ELETRO";
-    const cursoCor = usuario.curso === "Informática" ? "#2196F3" : "#FF9800";
-    const cursoBadge = `<span class="badge-curso" style="background: ${cursoCor}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-left: 8px;">${cursoAbrev}</span>`;
-    
+
     item.innerHTML = `
-      <span class="posicao">${emoji} ${posicao}º</span>
-      <span class="usuario">${usuario.usuario}${cursoBadge}${isUsuarioAtual ? ' <span style="color: #ffeb3b;">(Você)</span>' : ''}</span>
-      <span class="pontuacao">${usuario.xp} XP - Nv.${usuario.nivel}</span>
+      <span class="posicao">${emoji} ${pos}º</span>
+      <span class="usuario">
+        ${u.usuario}
+        <span style="background:${corCurso};color:white;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:8px;">${abrevCurso}</span>
+        ${euSou ? '<span style="color:#ffeb3b;"> (Você)</span>' : ''}
+      </span>
+      <span class="pontuacao">${u.xp} XP — Nv.${u.nivel}</span>
     `;
-    
     container.appendChild(item);
   });
-  
-  // Adicionar posição do usuário se não estiver no top visível
-  if (usuarioLogado && destacarUsuario) {
-    const posicaoUsuario = usuarios.findIndex(u => u.usuario === usuarioLogado.usuario) + 1;
-    
-    if (posicaoUsuario > 10) {
-      const separador = document.createElement('div');
-      separador.style.cssText = 'text-align: center; padding: 10px; color: #666; font-weight: bold;';
-      separador.textContent = '...';
-      container.appendChild(separador);
-      
-      const cursoAbrev = usuarioLogado.curso === "Informática" ? "TI" : "ELETRO";
-      const cursoCor = usuarioLogado.curso === "Informática" ? "#2196F3" : "#FF9800";
-      const cursoBadge = `<span class="badge-curso" style="background: ${cursoCor}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-left: 8px;">${cursoAbrev}</span>`;
-      
-      const itemUsuario = document.createElement('div');
-      itemUsuario.className = 'ranking-item';
-      itemUsuario.style.background = '#1e88e5';
-      itemUsuario.style.color = 'white';
-      itemUsuario.style.fontWeight = 'bold';
-      itemUsuario.style.border = '2px solid #ffeb3b';
-      
-      itemUsuario.innerHTML = `
-        <span class="posicao">${posicaoUsuario}º</span>
-        <span class="usuario">${usuarioLogado.usuario}${cursoBadge} <span style="color: #ffeb3b;">(Você)</span></span>
-        <span class="pontuacao">${usuarioLogado.xp} XP - Nv.${usuarioLogado.nivel}</span>
+
+  // Se o usuário estiver fora do top 10, mostrar abaixo
+  if (logado) {
+    const posLogado = usuarios.findIndex(u => u.usuario === logado.usuario) + 1;
+    if (posLogado > 10) {
+      const sep = document.createElement('div');
+      sep.style.cssText = 'text-align:center;padding:8px;color:#666;font-weight:bold;';
+      sep.textContent = '...';
+      container.appendChild(sep);
+
+      const corCurso = logado.curso === 'Informática' ? '#2196F3' : '#FF9800';
+      const abrevCurso = logado.curso === 'Informática' ? 'TI' : 'ELETRO';
+      const item = document.createElement('div');
+      item.className = 'ranking-item';
+      item.style.cssText = 'background:#1e88e5;color:white;font-weight:bold;border:2px solid #ffeb3b;';
+      item.innerHTML = `
+        <span class="posicao">${posLogado}º</span>
+        <span class="usuario">
+          ${logado.usuario}
+          <span style="background:${corCurso};color:white;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:8px;">${abrevCurso}</span>
+          <span style="color:#ffeb3b;"> (Você)</span>
+        </span>
+        <span class="pontuacao">${logado.xp} XP — Nv.${logado.nivel}</span>
       `;
-      
-      container.appendChild(itemUsuario);
+      container.appendChild(item);
     }
   }
 };
-
-// ========================================
-// CARREGAR RANKING DO CAMPUS
-// ========================================
-
-const carregarRankingCampus = () => {
-  const usuarios = obterTodosUsuarios();
-  renderizarRanking(usuarios, 'ranking-container');
-};
-
-// ========================================
-// CARREGAR RANKING DO CURSO
-// ========================================
-
-const carregarRankingCurso = () => {
-  const usuarioLogado = obterUsuarioLogado();
-  if (!usuarioLogado) return;
-  
-  const usuarios = obterUsuariosPorCurso(usuarioLogado.curso);
-  renderizarRanking(usuarios, 'ranking-container');
-};
-
-// ========================================
-// ATUALIZAR ESTATÍSTICAS DO PERFIL
-// ========================================
 
 const atualizarEstatisticasRanking = () => {
-  const usuarioLogado = obterUsuarioLogado();
-  if (!usuarioLogado) return;
-  
-  // Obter posição no ranking do curso
-  const usuariosCurso = obterUsuariosPorCurso(usuarioLogado.curso);
-  const posicaoCurso = usuariosCurso.findIndex(u => u.usuario === usuarioLogado.usuario) + 1;
-  
-  // Atualizar no perfil se o elemento existir
-  const elementoPosicao = document.querySelector('.estatistica-bloco:last-child p');
-  if (elementoPosicao) {
-    let texto = '';
-    if (posicaoCurso === 1) texto = '🥇 1º Lugar';
-    else if (posicaoCurso === 2) texto = '🥈 2º Lugar';
-    else if (posicaoCurso === 3) texto = '🥉 3º Lugar';
-    else texto = `${posicaoCurso}º Lugar`;
-    
-    elementoPosicao.textContent = texto;
+  const logado = obterUsuarioLogado();
+  if (!logado) return;
+  const pos = obterUsuariosPorCurso(logado.curso).findIndex(u => u.usuario === logado.usuario) + 1;
+  const el = document.querySelector('.estatistica-ranking');
+  if (el) {
+    el.textContent = pos === 1 ? '🥇 1º Lugar' : pos === 2 ? '🥈 2º Lugar' : pos === 3 ? '🥉 3º Lugar' : `${pos}º Lugar`;
   }
 };
-
-// ========================================
-// SISTEMA DE FILTROS DE RANKING
-// ========================================
-
-const configurarFiltrosRanking = () => {
-  const btnCampus = document.querySelector('.ranking-curso-campus button:first-child');
-  const btnCurso = document.querySelector('.ranking-curso-campus button:last-child');
-  
-  if (btnCampus && btnCurso) {
-    // Verificar qual página está ativa
-    const url = window.location.pathname;
-    
-    if (url.includes('Ranking-campus')) {
-      btnCampus.classList.add('ranking-escolhido');
-      carregarRankingCampus();
-    } else if (url.includes('Ranking-curso')) {
-      btnCurso.classList.add('ranking-escolhido');
-      carregarRankingCurso();
-    }
-  }
-};
-
-// ========================================
-// CRIAR USUÁRIOS FAKE PARA TESTES
-// ========================================
-
-const popularRankingTeste = () => {
-  // Verificar se já existem usuários
-  let totalUsuarios = 0;
-  for (let i = 0; i < localStorage.length; i++) {
-    if (localStorage.key(i).startsWith('usuario_')) {
-      totalUsuarios++;
-    }
-  }
-  
-  // Se já tem mais de 3 usuários, não criar mais
-  if (totalUsuarios > 3) return;
-  
-  const nomes = [
-    'joao.silva', 'maria.santos', 'pedro.oliveira', 'ana.costa', 
-    'lucas.almeida', 'julia.ferreira', 'carlos.souza', 'beatriz.lima',
-    'rafael.martins', 'camila.rocha', 'diego.pereira', 'fernanda.dias',
-    'bruno.cardoso', 'patricia.gomes', 'rodrigo.barbosa', 'aline.ribeiro'
-  ];
-  
-  const cursos = ['Informática', 'Eletrotécnica'];
-  
-  nomes.forEach((nome, index) => {
-    if (!usuarioExiste(nome)) {
-      const curso = cursos[index % 2];
-      const usuario = criarUsuarioPadrao(nome, `IFBA.${String(index).padStart(11, '0')}`, curso);
-      
-      // XP aleatório entre 50 e 1000
-      usuario.xp = Math.floor(Math.random() * 950) + 50;
-      usuario.nivel = Math.floor(usuario.xp / 100) + 1;
-      
-      // Dias seguidos aleatório
-      usuario.estatisticas.diasSeguidos = Math.floor(Math.random() * 30) + 1;
-      
-      salvarUsuario(usuario);
-    }
-  });
-};
-
-// ========================================
-// LIMPAR RANKING DE TESTE (USAR COM CUIDADO!)
-// ========================================
-
-const limparRankingTeste = () => {
-  const usuarioAtual = obterSessao();
-  
-  for (let i = localStorage.length - 1; i >= 0; i--) {
-    const chave = localStorage.key(i);
-    if (chave.startsWith('usuario_')) {
-      const usuario = chave.replace('usuario_', '');
-      // Não deletar o usuário atual
-      if (usuario !== usuarioAtual) {
-        localStorage.removeItem(chave);
-      }
-    }
-  }
-  
-  console.log('Ranking de teste limpo! Apenas seu usuário foi mantido.');
-};
-
-// ========================================
-// ATUALIZAR INFORMAÇÕES DE XP NA INTERFACE
-// ========================================
-
-const atualizarXPInterface = () => {
-  const usuario = obterUsuarioLogado();
-  if (!usuario) return;
-  
-  // Atualizar XP total
-  const xpElement = document.getElementById('xp-total');
-  if (xpElement) {
-    xpElement.textContent = `${usuario.xp} XP`;
-  }
-  
-  // Atualizar nível
-  const nivelElement = document.getElementById('nivel-usuario');
-  if (nivelElement) {
-    nivelElement.textContent = `Nível ${usuario.nivel}`;
-  }
-  
-  // Calcular e mostrar barra de progresso (se existir)
-  const barraProgresso = document.getElementById('barra-progresso-xp');
-  if (barraProgresso) {
-    const xpAtual = usuario.xp;
-    const xpProximoNivel = xpParaProximoNivel(usuario.nivel);
-    const porcentagem = (xpAtual / xpProximoNivel) * 100;
-    
-    barraProgresso.style.width = `${porcentagem}%`;
-    barraProgresso.textContent = `${xpAtual}/${xpProximoNivel} XP`;
-  }
-};
-
-// ========================================
-// INICIALIZAÇÃO
-// ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
   if (!verificarAutenticacao()) return;
-  
   const url = window.location.pathname;
-  
-  // Popular ranking de teste (apenas na primeira vez)
-  if (url.includes('Ranking')) {
-    popularRankingTeste();
-    configurarFiltrosRanking();
+  if (url.includes('Ranking-campus')) {
+    renderizarRanking(obterTodosUsuarios(), 'ranking-container');
+  } else if (url.includes('Ranking-curso')) {
+    const logado = obterUsuarioLogado();
+    if (logado) renderizarRanking(obterUsuariosPorCurso(logado.curso), 'ranking-container');
   }
-  
-  // Atualizar estatísticas do perfil
-  if (url.includes('Perfil.html')) {
+  if (url.includes('Perfil')) {
     atualizarEstatisticasRanking();
-    atualizarXPInterface();
   }
-  
-  // Atualizar XP em todas as páginas (se houver indicador)
-  atualizarXPInterface();
 });
-
-// Expor função para console (desenvolvimento)
-window.limparRankingTeste = limparRankingTeste;
