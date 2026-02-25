@@ -107,13 +107,13 @@ header {
 }
 
 
-.Configurações-conteudo .container {
+.container {
     color: #1e88e5;
-    margin-top: 90px;
-    margin-left: 280px;
-    width: 480px;
+    margin-top: 20px;
+    margin-left: 43%;
+    width: 400px;
     background-color: #2a2a3a;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
@@ -167,7 +167,7 @@ input, select {
 }
 
 .voltar {
-    margin-left: 0;
+    margin-left: 38%;
     margin-top: 10px;
     padding: 10px 15px;
     background: #1e88e5;
@@ -180,65 +180,4 @@ input, select {
 
 .voltar:hover {
     background: #005bb5;
-}
-/* ========================================
-   BLOQUEIO MOBILE - mobile-block.js
-   ======================================== */
-.mobile-block-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #1a1a27 0%, #1e1e2e 100%);
-    z-index: 99999;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-}
-
-.mobile-block-content {
-    max-width: 90%;
-    color: white;
-}
-
-.mobile-block-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    animation: mobileIconPulse 2s infinite;
-}
-
-.mobile-block-content h1 {
-    color: #1e88e5;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-}
-
-.mobile-block-content p {
-    color: #ccc;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 10px;
-}
-
-.mobile-block-content .highlight {
-    color: #1e88e5;
-    font-weight: bold;
-}
-
-@keyframes mobileIconPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-@media screen and (max-width: 1023px) {
-    .mobile-block-overlay {
-        display: flex !important;
-    }
-    body > *:not(.mobile-block-overlay) {
-        display: none !important;
-    }
 }
